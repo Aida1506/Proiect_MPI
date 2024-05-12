@@ -1,0 +1,542 @@
+\documentclass{article}
+\usepackage{bm} 
+\usepackage{lipsum} % Pachetul lipsum oferă comanda \lipsum pentru generarea de texte de umplere
+\usepackage{titletoc}
+\usepackage{geometry}
+\usepackage[romanian]{babel}
+\usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{booktabs} % Pentru a crea linii orizontale frumoase în tabel
+\usepackage{siunitx} % Pentru formatarea numerelor și unităților
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{natbib}[square,color=black]
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=black
+}
+\bibliographystyle{plainnat}
+\makeatletter
+\renewcommand\NAT@open{[} % Deschiderea parantezei drepte înainte de lista de autori
+\renewcommand\NAT@close{]} % Închiderea parantezei drepte după lista de autori
+\makeatother
+
+
+\renewcommand{\abstractname}{Rezumat} % Redefinește numele abstractului la "Rezumat"
+\titlecontents{section}[0em]
+{\normalfont\Large} % Dimensiunea textului
+{\thecontentslabel\hspace{1em}} % Numărul secțiunii
+{} % Începutul titlului
+{\titlerule*[0.5pc]{.}\contentspage} % Sfârșitul titlului
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black, % Setează culoarea link-urilor la negru
+    urlcolor=black, % Setează culoarea link-urilor URL la negru
+    linkbordercolor=white, % Elimină cadrul din jurul link-urilor
+    urlbordercolor=white % Elimină cadrul din jurul link-urilor URL
+}
+
+\begin{document}
+
+{
+\title{\Huge Evaluarea și compararea unor metode de sortare în informatică}
+\author{
+  Aida-Cristiana Sandu \\
+  Departamentul de Informatică \\
+  Facultatea de Matematică și Informatică \\
+  Universitatea de Vest Timișoara, România \\
+  \textbf{ \texttt Email: {\href{mailto:aida.sandu04@e-uvt.ro}{\nolinkurl{aida.sandu04@e-uvt.ro}}}} % Adaugă linkul către adresa de email cu font monospațiat și fără cadrul albastru
+}
+\date{} % pentru a elimina data de pe prima pagina
+\maketitle
+}
+
+\begin{abstract}
+\begin{center}
+\begin{minipage}{0.7\textwidth}
+\hspace*{1em}  În această lucrare vom compara mai multe metode de sortare din domeniul informaticii, din punct de vedere al eficienței și al timpului de execuție. \\
+\hspace*{1em} O parte esențială a acestei analize constă în identificarea punctelor forte ale unui algoritm în comparație cu ceilalți. 
+De asemenea, vom examina și cazurile în care vom folosi un algoritm în favoarea altuia, în funcție de dimensiunea datelor de intare.
+\end{minipage}
+\end{center}
+\end{abstract}
+
+\newpage
+
+\tableofcontents % Adaugă cuprinsul
+
+\newpage % Treci la pagina următoare
+
+% Folosește \section* pentru a crea secțiunea "Introducere" fără numerotare
+\large \section{Introducere}
+\label{sec:introducere}
+
+
+
+\subsection{Motivație}
+\hspace*{1em}Contextul problemei sortării în informatică este reprezentat de necesitatea organizării datelor într-o anumită ordine, și dupa anumite criterii. Sortarea este o operație fundamentală, folosită în multe domenii ale informaticii, cum ar fi algoritmi de căutare sau rețele de calculatoare. 
+Problema constă în aranjarea unui set de date într-o anumită ordine, cum ar fi numerică sau alfabetică, pentru a facilita accesul, căutarea și gestionarea acestora. Problema sortării este esențială în contextul informaticii, unde trebuie să realizăm aplicații cât mai eficiente, care să funcționeze rapid pe seturi foarte mari de date. Problema sortării este interesantă datorită diversității algoritmilor. De-a lungul timpului, mai mulți cercetători au încercat sa creeze cea mai eficientă variantă de sortare, fiecare cu propriile sale avantaje și dezavantaje.  
+
+
+\subsection{Descrierea informală a soluției}
+\hspace*{1em} Pașii soluției pe care ii vom parcurge sunt implementarea algoritmilor și compararea acestora în funție de eficiența lor pe exemple practice, adică  pe diferite seturi de date de intrare.
+Proprietățile soluției sunt:
+\begin{enumerate}[label=\arabic*.]
+    \item Eficiența, se referă la faptul că metoda de sortare ar trebui să necesite un volum rezonabil de resurse, adică timpul de execuție trebuie să fie acceptabil.
+    \item Stabilitate, adică în urma aplicării metodei de sortare, ordinea relativă a elementelor trebuie păstrată.
+    \item Simplitate, adică o metodă de sortare ar trebui să fie simplu de înțeles și de implementat.
+    \item Naturalețe, care se caracterizează prin faptul că numărul de operații necesare este proporțional cu gradul de dezordine al secvenței inițiale.
+\end{enumerate}
+
+
+\subsection{Exemple simple ce ilustrează problema și soluția pentru metodele de sortare:}
+
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Eficiența:}
+    \begin{itemize}[label=--, leftmargin=*]
+        \item \textbf{Problemă:} Sortarea unei liste de numere întregi de dimensiuni mari într-un timp rezonabil pentru a asigura o experiență rapidă utilizatorilor într-o aplicație web.
+        \item \textbf{Soluție:} Utilizarea unui algoritm eficient precum Quick Sort sau Merge Sort, care are o complexitate temporală mai bună decât algoritmi mai simpli precum Bubble Sort sau Selection Sort.
+    \end{itemize}
+
+    \item \textbf{Stabilitate:}
+    \begin{itemize}[label=--, leftmargin=*]
+        \item \textbf{Problemă:} Sortarea unei liste de obiecte în baza unui anumit atribut, dar păstrând ordinea relativă a obiectelor cu aceleași valori ale acestui atribut.
+        \item \textbf{Soluție:} Utilizarea unui algoritm stabil precum Merge Sort, care păstrează ordinea relativă a elementelor egale.
+    \end{itemize}
+
+    \item \textbf{Simplitate:}
+    \begin{itemize}[label=--, leftmargin=*]
+        \item \textbf{Problemă:} Implementarea unei funcții de sortare într-un limbaj de programare pentru a ordona un tablou de numere întregi în ordine crescătoare.
+        \item \textbf{Soluție:} Utilizarea unui algoritm simplu precum Bubble Sort sau Insertion Sort, care sunt ușor de înțeles și de implementat, chiar dacă nu sunt cele mai eficiente.
+    \end{itemize}
+
+    \item \textbf{Naturalețe:}
+    \begin{itemize}[label=--, leftmargin=*]
+        \item \textbf{Problemă:} Sortarea unui tablou parțial sortat, unde majoritatea elementelor sunt deja în ordine, dar câteva sunt interschimbate.
+        \item \textbf{Soluție:} Utilizarea unui algoritm adaptiv precum Insertion Sort, care este eficient în cazurile de date aproape sortate, deoarece necesită un număr mic de operații pentru a finaliza sortarea.
+    \end{itemize}
+\end{enumerate}
+
+
+\subsection{Exemplu complex: Sortarea cărților dintr-o bibliotecă}
+
+În cadrul unei biblioteci, este necesară sortarea cărților în funcție de mai multe criterii pentru a asigura accesul facil al utilizatorilor la informația dorită.
+
+\textbf{Problemă:}
+\begin{itemize}[label=--, leftmargin=*]
+    \item Biblioteca are un număr mare de cărți și dorește să ofere utilizatorilor o modalitate rapidă și eficientă de a găsi cărțile dorite.
+    \item Sortarea trebuie să fie eficientă pentru a permite personalului bibliotecii să găsească rapid cărțile și să le pună la dispoziție cititorilor.
+    \item Este important ca ordinea relativă a cărților să fie păstrată în anumite situații, cum ar fi sortarea după autor, dar cu prioritate pentru cărțile din aceeași categorie sau gen literar.
+    \item Implementarea trebuie să fie simplă și ușor de înțeles pentru a permite personalului bibliotecii să lucreze eficient și să gestioneze colecția de cărți fără dificultate.
+\end{itemize}
+
+\textbf{Soluție:}
+\begin{itemize}[label=--, leftmargin=*]
+    \item Pentru a răspunde la cerințele de eficiență, putem folosi algoritmi de sortare eficienți precum Merge Sort sau Quick Sort, care sunt optimizați pentru seturi de date mari.
+    \item Pentru a păstra stabilitatea și a menține ordinea relativă a cărților, putem implementa un algoritm care să țină cont de mai multe criterii de sortare și să aplice sortări multiple în funcție de situație.
+    \item Implementarea poate fi simplificată prin folosirea unor funcții și structuri de date bine definite și documentate, astfel încât personalul bibliotecii să poată înțelege și să modifice catalogul de cărți fără dificultate.
+    \item Pentru a asigura naturalețea sortării și pentru a menține performanța în cazurile comune, putem folosi algoritmi adaptivi care să ajusteze comportamentul în funcție de caracteristicile setului de cărți.
+\end{itemize}
+
+\textbf{Concluzie:}
+Sortarea cărților dintr-o bibliotecă implică multiple aspecte, cum ar fi eficiența, stabilitatea, simplitatea și naturalețea. Prin selectarea și implementarea adecvată a algoritmilor de sortare, putem asigura un acces facil și eficient al utilizatorilor la colecția de cărți și o gestionare optimă a bibliotecii.
+
+\subsection{Declarație de originalitate}
+\hspace*{1em} În cadrul acestei lucrări am documentat procesul prin care am evaluat și comparat diferite metode de sortare în funcție de eficiență și de timpul lor de execuție pe mai multe seturi de date.
+
+\subsection{Instrucțiuni de citire}
+\hspace*{1em} Lucrarea începe cu o parte introductivă unde descriem ce va fi prezentat în această lucrăre și ce așteptări să avem de la aceasta. După această parte urmează o descriere informală a conținutului, iar mai apoi ajungem la comparația efectivă a metodelor de sortare. După ce am evaluat rezultatele obținute, lucrarea se concluzionează cu un rezumat al acesteia și cu detalii despre ce a mers și ce nu a mers în ceea ce privește analiza și comparația.
+
+
+\section{Descrierea formală a problemei și soluției}
+\label{sec:descriere}
+
+\subsection{Contextul problemei}
+
+\hspace*{1em} În contextul informaticii, sortarea reprezintă procesul de aranjare a unui set de date într-o anumită ordine, conform unei anumite relații de ordine. Această operație este esențială într-o varietate de aplicații, cum ar fi bazele de date, algoritmi de căutare eficienți sau procesarea de date în timp real. Scopul sortării este de a facilita accesul și manipularea datelor în mod eficient.
+
+\subsection{Sintaxa și semantica algoritmilor de sortare}
+
+\hspace*{1em} Sintaxa și semantica algoritmilor de sortare sunt formalizate conform specificațiilor standard. Fiecare algoritm de sortare este definit printr-o serie de pași sau instrucțiuni care manipulează elementele dintr-o secvență de intrare pentru a le aranja într-o ordine specifică. De exemplu, algoritmul de sortare Bubble Sort compară elementele consecutive și le rearanjează în ordine crescătoare sau descrescătoare, în funcție de necesități.
+
+\subsection{Sistemul de raționament}
+
+\hspace*{1em} Algoritmii de sortare sunt bazate pe principii logice și matematice, cum ar fi principiile ordinii și relațiile de ordine. Sistemul de raționament al unui algoritm de sortare demonstrează corectitudinea și eficiența acestuia, precum și optimizările și strategiile folosite pentru a îmbunătăți performanța. De exemplu, algoritmul Merge Sort utilizează o strategie de împărțire și combinare pentru a sorta eficient secvențe mari de date.
+
+\subsection{Proprietățile soluției}
+
+\hspace*{1em} Proprietățile soluțiilor algoritmice de sortare includ eficiența, care garantează că algoritmul necesită un volum rezonabil de resurse, și stabilitatea, care se referă la performanța și timpul de execuție al algoritmului în funcție de dimensiunea și complexitatea setului de date de intrare. De asemenea, se poate discuta și despre simplitatea și naturalețea algoritmilor, care sunt importante în anumite contexte de utilizare.
+
+
+
+
+\section{Modelarea și implementarea problemei și soluției}
+\label{sec:modelare}
+
+În această parte vom implementa metodele de sortare pe care le vom analiza și compara mai departe, dar vom explica și modul în care acestea pot fi utilizate. Toți algoritmii de mai jos au fost implementați în pseudocod și au fost preluați din cursul ASD 1 \citep{zaharieASD}. Pentru a funcționa concret, aceștia trebuie implementați, într-un limbaj de programare ales, și într-un IDE la alegere.
+
+
+
+\textbf{Implementarea algoritmilor}
+\begin{algorithm}[H]
+\caption{Insertion Sort}
+\begin{algorithmic}[1]
+\Function{insertion\_sort}{$a[1...n]$}
+    \For{$i \gets 2$ to $n$}
+        \State $aux \gets a[i]$
+        \State $j \gets i - 1$
+        \While{$j \geq 1$ \textbf{and} $aux \leq a[j]$}
+            \State $a[j+1] \gets a[j]$
+            \State $j \gets j - 1$
+        \EndWhile
+        \State $a[j+1] \gets aux$
+    \EndFor
+    \State \textbf{return} $a[1...n]$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Selection Sort}
+\begin{algorithmic}[1]
+\Function{Selection\_Sort}{$x[1...n]$}
+    \For{$i \gets 1$ to $n-1$}
+        \State $k \gets i$
+        \For{$j \gets i+1$ to $n$}
+            \If{$x[k] > x[j]$}
+                \State $k \gets j$
+            \EndIf
+        \EndFor
+        \If{$k \neq i$}
+            \State interschimbă $x[i]$ cu $x[k]$
+        \EndIf
+    \EndFor
+    \State \textbf{return} $x[1...n]$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Bubble Sort}
+\begin{algorithmic}[1]
+\Function{Bubble\_sort}{$x[1...n]$}
+    \For{$i \gets n$ \textbf{downto} $2$}
+        \For{$j \gets 1$ to $i-1$}
+            \If{$x[j] > x[j+1]$}
+                \State interschimbă $x[j]$ cu $x[j+1]$
+            \EndIf
+        \EndFor
+    \EndFor
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Merge Sort}
+\begin{algorithmic}[1]
+\Function{Sortare}{$x[s...d]$}
+    \If{$s < d$}
+        \State $m \gets (s+d)/2$
+        \State $x[s...m] \gets$ Sortare($x[s...m]$)
+        \State $x[m+1...d] \gets$ Sortare($x[m+1...d]$)
+        \State $x[s...d] \gets$ Interclasare($x[s...m]$, $x[m+1...d]$)
+    \EndIf
+\EndFunction
+
+\Function{Interclasare}{$x[s...m]$, $x[m+1...d]$}
+    \State $i \gets s$
+    \State $j \gets m+1$
+    \State $k \gets 0$
+    \While{$i \leq m$ \textbf{and} $j \leq d$}
+        \State $k \gets k+1$
+        \If{$x[i] \leq x[j]$}
+            \State $t[k] \gets x[i]$
+            \State $i \gets i+1$
+        \Else
+            \State $t[k] \gets x[j]$
+            \State $j \gets j+1$
+        \EndIf
+    \EndWhile
+    \While{$i \leq m$}
+        \State $k \gets k+1$
+        \State $t[k] \gets x[i]$
+        \State $i \gets i+1$
+    \EndWhile
+    \While{$j \leq d$}
+        \State $k \gets k+1$
+        \State $t[k] \gets x[j]$
+        \State $j \gets j+1$
+    \EndWhile
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Quick Sort}
+\begin{algorithmic}[1]
+\Function{Quick\_Sort}{$x[s...d]$}
+    \If{$s < d$}
+        \State $q \gets$ pivot($x[s...d]$)
+        \State $x[s...q-1] \gets$ QuickSort($x[s...q-1]$)
+        \State $x[q...d] \gets$ QuickSort($x[q...d]$)
+    \EndIf
+\EndFunction
+
+\Function{pivot}{$x[s...d]$}
+    \State $v \gets x[d]$
+    \State $i \gets s-1$
+    \State $j \gets d$
+    \While{$i < j$}
+        \Repeat
+            \State $i \gets i+1$
+        \Until{$x[i] \geq v$}
+        \Repeat
+            \State $j \gets j-1$
+        \Until{$x[j] \leq v$}
+        \If{$i < j$}
+            \State $x[i] \leftrightarrow x[j]$
+        \EndIf
+    \EndWhile
+    \State $x[i] \leftrightarrow x[d]$
+    \State \Return $i$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Counting Sort}
+\begin{algorithmic}[1]
+\Function{CountingSort}{$x[1...n], m$}
+    \For{$i \gets 1$ to $m$}
+        \State $f[i] \gets 0$
+    \EndFor
+    \For{$i \gets 1$ to $n$}
+        \State $f[x[i]] \gets f[x[i]] + 1$
+    \EndFor
+    \For{$i \gets 2$ to $m$}
+        \State $f[i] \gets f[i-1] + f[i]$
+    \EndFor
+    \For{$i \gets n$ to $1$ decreasing}
+        \State $y[f[x[i]]] \gets x[i]$
+        \State $f[x[i]] \gets f[x[i]] - 1$
+    \EndFor
+    \For{$i \gets 1$ to $n$}
+        \State $x[i] \gets y[i]$
+    \EndFor
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Radix Sort}
+\begin{algorithmic}[1]
+\Function{RadixSort}{$x[1...n], k$}
+    \For{$i \gets 0$ to $k-1$}
+        \State $x[1...n] \gets$ \Call{Counting}{$x[1...n], 9, i$}
+    \EndFor
+    \State \Return $x[1...n]$
+\EndFunction
+\Function{Counting}{$x[1...n], m, c$}
+    \For{$i \gets 0$ to $m$}
+        \State $f[i] \gets 0$
+    \EndFor
+    \For{$i \gets 0$ to $n$}
+        \State $j \gets (x[i] \div \text{putere}(10, c)) \mod 10$
+        \State $f[j] \gets f[j] + 1$
+    \EndFor
+    \For{$i \gets 1$ to $m$}
+        \State $f[i] \gets f[i-1] + f[i]$
+    \EndFor
+    \For{$i \gets n$ to $1$ decreasing}
+        \State $j \gets (x[i] \div \text{putere}(10, c)) \mod 10$
+        \State $y[f[j]] \gets x[i]$
+        \State $f[j] \gets f[j] - 1$
+    \EndFor
+    \For{$i \gets 1$ to $n$}
+        \State $x[i] \gets y[i]$
+    \EndFor
+    \State \Return $x[1...n]$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\section{Studiu de caz}
+\label{sec:experiment}
+În această secțiune vom prezenta timpii efectivi de execuție ai algoritmilor de sortare și îi vom compara. Tabelele prezentate mai jos au fost scrise în urma mai multor experimente, pe seturi de date diferite. 
+
+\begin{table}[htbp]
+  \centering
+  \caption{Insertion Sort}
+  \begin{tabular}{cccc}
+    \toprule
+    Numărul de elemente & Ordinea numerelor & Timp execuție (s) \\
+    \midrule
+    $10^4$ & Aleatorie & \num{5.507} \\
+    $10^5$ & Aleatorie & \num{1333} \\
+    $10^4$ & Ordonate descrescător & \num{11.210} \\
+    $10^5$ & Ordonate descrescător & \num{2682.146} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Selection Sort}
+  \begin{tabular}{cccS[table-format=4.3]}
+    \toprule
+    Numărul de elemente & Ordinea numerelor & Timp de execuție (s) \\
+    \midrule
+    $10^4$ & Aleatorie & 10.898 \\
+    $10^5$ & Aleatorie & 1115 \\
+    $10^4$ & Ordonate descrescător & 25.381 \\
+    $10^5$ & Ordonate descrescător & 2593.726 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Bubble Sort}
+  \begin{tabular}{cccS[table-format=4.3]}
+    \toprule
+    Numărul de elemente & Ordinea elementelor & Timp de execuție (s) \\
+    \midrule
+    $10^4$ & Aleatorie & 38.250 \\
+    $10^5$ & Aleatorie & 2646.793 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Merge Sort}
+  \begin{tabular}{cccS[table-format=2.3]}
+    \toprule
+    Numărul de elemente & Ordinea elementelor & Timp de execuție (s) \\
+    \midrule
+    $10^4$ & Aleatorie & 0.381 \\
+    $10^5$ & Aleatorie & 2.912 \\
+    $10^6$ & Aleatorie & 48.725 \\
+    $10^4$ & Ordonate descrescător & 0.457 \\
+    $10^5$ & Ordonate descrescător & 3.346 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Quick Sort}
+  \begin{tabular}{cccS[table-format=2.3]}
+    \toprule
+    Numărul elementelor & Ordinea elementelor & Timp de execuție (s) \\
+    \midrule
+    $10^4$ & Aleatorie & 0.401 \\
+    $10^5$ & Aleatorie & 3.135 \\
+    $10^6$ & Aleatoare & 29.185 \\
+    $10^4$ & Ordonate descrescător & 0.347 \\
+    $10^5$ & Ordonate descrescător & 3.346 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Counting Sort}
+  \begin{tabular}{cccS[table-format=1.3]}
+    \toprule
+    Numărul de elemente & Ordinea elementelor & Timp de execuție (s) \\
+    \midrule
+    $10^4$ & Aleatorie & 2.698 \\
+    $10^5$ & Aleatorie & 6.152 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\begin{table}[htbp]
+  \centering
+  \caption{Radix Sort}
+  \begin{tabular}{cccS[table-format=1.3]}
+    \toprule
+    Numărul de elemente & Ordinea elementelor & Timp de execuție (s) \\
+    \midrule
+    $10^4$ & Aleatorie & 0.759 \\
+    $10^5$ & Aleatorie & 3.080 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\clearpage
+\textbf{Analiza rezultatelor}\\
+\hspace*{1em} Din tabelele de mai sus observăm că rezultatele sunt conform așteprărilor, conform teoriei. Insertion Sort are complexitatea n în cel mai bun caz și \(n^2\) în cel mai rău caz, în timp ce Selection Sort are complexitatea medie de \(n^2\). Insertion Sort este stabilă și este adaptabilă la date de intrare parțial sortate, fiind eficientă pe seturi de date mici, în timp ce Selection Sort nu este stabilă și nici atârt de eficientă, iar datele de intrare parțial sortate nu îmbunătățesc cu mult timpul de execuție. Având complexități asemănătoare, și timpii de execuție vor fi asemănători, așa cum se poate observa în tabele. În cazul unui set de date ordonat descrescător, timpul este de două ori mai mare față de un set de date aleatoriu.\\ În cazul Bubble Sort, aceasta este stabilă, dar timpul de execuție este \(O(n^2)\), ceea ce o face să fie cea mai neeficientă metodă de sortare. Chiar și pentru un set de date aleatoriu, sortarea devine neeficientă de la un milion de elemente, timpul de execuție fiind de aproximativ 40 de minute.\\
+\hspace*{1em} Merge Sort și Quick Sort au ambele o complexitate medie de \( n * log(n) \), Merge Sort în toate cazurile, iar Quick Sort în medie, ceea ce le face să fie cele mai eficiente metode de sortare, după cum se poate observa și din cele două tabele. Constatăm că, chiar și pentru 10 milioane de elemente, timpul de execuție este scurt, de aproximativ 50 de secunde pentru Merge Sort și aproximativ 30 de secunde pentru Quick Sort. Se observă și faptul că, complexitatea algoritmului Quick Sort poate ajunge la \(n^2\), diferențele din tabel fiind de câteva secunde între acesta și Merge Sort. Merge Sort este stabilă, folosește o strategie divide et impera și are o performanță ridicată chiar și în cazuri nefavorabile. Quick Sort nu este stabilă, folosește tot o strategie divide et impera, dar nu este adaptabilă, deci are performanțe scăzute pentru seturi de date sortate parțial sau sortate descrescător.\\
+\hspace*{1em} Counting Sort și Radix Sort sunt doi algoritmi care se aplică pe seturi de date speciale. Counting Sort are complexitatea \(O(n+k)\), unde n este numărul de elemente și k este intervalul elementelor (diferența dintre valoarea maximă și valoarea minimă). Counting Sort este eficient atunci când intervalul elementelor este relativ mic. Counting Sort este stabil și este util atunci când sortăm un număr relativ mic de elemente dintr-un interval cunoscut, de exemplu frecvențele caracterelor într-un șir de caractere. Radix Sort are o complexitate de timp de \(O(n*k)\), unde n este numărul de elemente și k este numărul maxim de cifre în numerele de sortat. Dacă numărul maxim de cifre este relativ mic, Radix Sort poate fi foarte eficient.
+Radix Sort este stabil, ceea ce înseamnă că păstrează ordinea relativă a elementelor cu aceeași valoare. Este util în special pentru sortarea de numere întregi sau alte structuri de date cu chei numerice. Este adesea folosit pentru sortarea de numere în reprezentarea binară sau zecimală. Observăm și din tabele că cei doi algoritmi sunt eficienți pentru seturile de date primite, timpul de execuție fiind de căteva secunde. 
+
+
+\section{Comparație cu literatura}
+\label{sec:comparatie}
+Comparând rezultatele prezentate în această lucrare cu abordările similare descrise în literatură, putem observa anumite aspecte relevante în ceea ce privește avantajele și dezavantajele fiecărei metode de sortare.
+
+Pentru a începe, lucrarea analizează mai multe metode de sortare, Insertion Sort, Selection Sort, Bubble Sort, Merge Sort, Quick Sort, Counting Sort și Radix Sort. Avantajele și dezavantajele fiecărei metode sunt evaluate în funcție de trei dimensiuni principale: problema abordată, soluțiile disponibile și domeniul de aplicare.
+
+Insertion Sort și Selection Sort sunt două metode simple, cu complexitate medie de \( n^2 \), eficiente mai ales pentru seturi de date mici și care pot fi adaptate la date parțial sortate. Totuși, acestea devin neeficiente pentru seturi de date mai mari din cauza complexității lor pătratice.
+
+Bubble Sort este recunoscut ca fiind cel mai ineficient algoritm de sortare, având o complexitate de \( n^2 \) chiar și pentru seturi de date mici. Performanța sa slabă îl face nepotrivit pentru aplicații practice, mai ales pentru seturi de date mai mari.
+
+Merge Sort și Quick Sort, pe de altă parte, sunt cele mai eficiente metode de sortare, având o complexitate medie de \( n * \log(n) \). Acestea sunt stabile și pot fi aplicate cu succes într-o gamă largă de scenarii, inclusiv pentru seturi de date mari și în cazul datelor parțial sortate sau sortate descrescător.
+
+Counting Sort și Radix Sort sunt două metode specializate care sunt utile în anumite contexte. Counting Sort are o complexitate de \( O(n+k) \) și este eficient atunci când intervalul elementelor este relativ mic, în timp ce Radix Sort are o complexitate de timp de \( O(n*k) \) și este potrivit pentru sortarea de numere întregi sau alte structuri de date cu chei numerice.
+
+Comparând aceste rezultate cu literatura existentă, putem observa că lucrarea validează informațiile prezentate în alte surse. De exemplu, rezultatele noastre sunt în concordanță cu concluziile din \citep{cormen2009introduction}, care evidențiază eficiența și utilitatea metodelor de sortare precum Merge Sort și Quick Sort în comparație cu alte metode mai puțin eficiente precum Bubble Sort.
+
+Alte surse precum \citep{brodal2005counting} și \citep{bedggood2010radix} oferă, de asemenea, perspective interesante asupra metodelor de sortare și pot fi consultate pentru a obține o înțelegere mai profundă a avantajelor și dezavantajelor fiecărei metode.
+
+
+\section{Concluzii și direcții viitoare}
+\label{sec:concluzii}
+În această lucrare, ne-am propus să explorăm și să comparăm performanța a șapte metode de sortare populare: Insertion Sort, Selection Sort, Bubble Sort, Merge Sort, Quick Sort, Radix Sort și Counting Sort. Am analizat aceste metode folosind diverse seturi de date și am evaluat timpul de execuție necesar pentru fiecare metodă.
+
+\subsection{Rezumat}
+Am constatat faptul că Merge Sort și Quick Sort au avut cele mai bune performanțe, în special pe seturile de date mari și neordonate. Radix Sort și Counting Sort au fost eficiente în sortarea datelor numerice, în timp ce Insertion Sort, Selection Sort și Bubble Sort au avut performanțe mai slabe în comparație cu celelalte metode.
+
+\subsection{Ce a funcționat și ce nu a funcționat}
+Merge Sort și Quick Sort au demonstrat o eficiență semnificativă în sortarea seturilor de date mari, iar rezultatele lor au fost consistente pe toate seturile de date testate. Radix Sort și Counting Sort au avut, de asemenea, performanțe bune pe seturile de date numerice, în timp ce Insertion Sort, Selection Sort și Bubble Sort au avut performanțe slabe pe seturile de date mari și neordonate.
+
+\subsection{Dificultăți întâlnite și soluții}
+Una dintre principalele dificultăți întâlnite a fost gestionarea seturilor de date extrem de mari și a eficienței algoritmilor pe aceste seturi de date. Soluția găsită a fost să ordonăm parțial setul sau să abordăm direct o altă metodă de sortare, din moment ce una care necesită prea mult timp ar fi fost ineficientă.
+
+
+
+\begin{thebibliography}{99} % Specifică un număr maxim de caractere pentru a menține alinierea
+
+  \bibitem[Cormen et al., 2009]{cormen2009introduction}
+  [Cormen et al., 2009] Cormen, T. H., Leiserson, C. E., Rivest, R. L., Stein, C. (2009). \textit{Introduction to Algorithms}. MIT Press, 3rd edition.
+
+  \bibitem[Brodal și Moruz, 2005]{brodal2005counting}
+  [Brodal și Moruz, 2005] Brodal, G. S., Moruz, G. (2005). On the Liveness of Counting Sort. \textit{Theory of Computing Systems}, 38(3), 385--401.
+
+  \bibitem[Bedggood și Metha, 2010]{bedggood2010radix}
+  [Bedggood și Metha, 2010] Bedggood, P., Metha, G. (2010). Radix Sort Revisited. In \textit{Proceedings of the 2010 International Conference on Computer Science and Software Engineering}, 168--171. IEEE.
+
+  \bibitem[Zaharie, 2023]{zaharieASD}
+  [Zaharie, 2023] Zaharie, D. (2023). \textit{Introducere în proiectarea și analiza algoritmilor}.
+
+\end{thebibliography}
+\vspace{1cm}
+Puteți găsi codurile sursă și rezultatele experimentale pe GitHub la adresa 
+\href{https://github.com/Aida1506/Proiect_MPI}{aceasta}.
+
+
+\end{document}
